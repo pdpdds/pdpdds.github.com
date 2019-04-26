@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Mirrored from dex-os.github.io/DexBasic/Lesson2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:39 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head><title>DexBasic Lesson2</title>
+
+
+
+
+
+
+  
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen" /></head><body id="home">
+<div id="container">
+<div id="logo_wrapper">
+<div id="logo"><img src="abc.png" alt="Dex" /></div>
+</div>
+<div class="clear">
+<div id="content_side">
+<div id="navigation">
+<ul id="navlist">
+  <li><a href="DexBasic.html" id="homenav">Intro</a></li>
+  <li><a href="Language.html" id="overnav">Language<br />
+    </a></li>
+  <li><a href="Lesson1.html" id="overnav">Lesson 1<br />
+    </a></li>
+  <li><a href="file:///home/craig/Desktop/new_page/Lesson2.htm" id="overnav">Lesson 2<br />
+    </a></li>
+  <li><a href="Lesson3.html" id="overnav">Lesson 3<br />
+    </a></li>
+  <li><a href="Lesson4.html" id="overnav">Lesson 4<br />
+    </a></li>
+  <li><a href="Lesson5.html" id="overnav">Lesson 5<br />
+    </a></li>
+  <li><a href="Lesson6.html" id="overnav">Lesson 6<br />
+    </a></li>
+  <li><a href="Lesson7.html" id="overnav">Lesson 7<br />
+    </a></li>
+  <li><a href="Lesson8.html" id="overnav">Lesson 8</a></li>
+  <li><a href="DexBasic.zip" id="overnav">DexBasic</a></li>
+</ul>
+</div>
+<div id="quote">
+<h5>"Batteries not included... Some assembly required"</h5>
+</div>
+</div>
+<div id="content_wrapper">
+<div id="content">
+<h1>Lesson 2<br />
+</h1>
+<h2>For the DexBasic for the raspberry pi<br />
+</h2>
+<p>This tutorial is going to be about setting up and using the mini
+Uart on your Raspberry Pi, to a pc/laptop or any other device that
+communicates through uart. Because most pc's today do not have a serial
+port the easiest option is to use a USB with a "FTDI FT232RL USB to
+serial IC", so you will need one of those if you want to follow along
+with this tutorial. The one i use is this one:<br />
+<a href="http://www.skpang.co.uk/catalog/ftdi-basic-breakout-33v-p-443.html">FTDI Basic Breakout - 3.3v</a><br />
+It looks like this:<br />
+</p>
+<p><img style="width: 562px; height: 467px;" alt="" src="images/image0.html" /><br />
+</p>
+<p>You will also require a Mini-B usb cable for this board, there is
+a board made by the same Co that has a built in cable, but i already had
+a Mini-B usb cable so i got this board.&nbsp; Which ever board you get make
+sure its the 3.3v ver.<br />
+</p>
+<p>To connect&nbsp; the board to your raspberry pi you will also need
+three jumper wires about 150mm long, with a female header on one end
+and a male header on the other end like this:</p>
+<p><img style="width: 562px; height: 234px;" alt="" src="images/image4.html" /><br />
+</p>
+<p>I have used three different colors to make it easy for you to see
+where they connect too.<br />
+These are the pin's to connect it to on your raspberry pi <br />
+</p>
+<p><img style="width: 562px; height: 473px;" alt="" src="images/Image1.html" /><br />
+</p>
+<p>Here's a diagram to make it more clear<br />
+</p>
+<p><img style="width: 400px; height: 497px;" alt="" src="images/image5.html" /><br />
+</p>
+<p>We then connect it to the FTDI board like this:<br />
+</p>
+<p><img style="width: 562px; height: 308px;" alt="" src="images/image2.html" /><br />
+</p>
+<p>The black wire goes to the GND pin (pin number 6) on the PI and the GND on the FTDI board.<br />
+The yellow wire is connected to the TX (pin number 8) on the PI and RX1 on the FTDI board.<br />
+The green wire is connected to the RX (pin number 10) on the PI and TX0 on the FTDI board.</p>
+<p>Like this:<br />
+</p>
+<p><img style="width: 562px; height: 493px;" alt="" src="images/image3.html" /><br /></p>
+<p>Now we have the wiring done, we need to setup the program we are
+going to use to talk to the PI, the first thing to note is that if you
+are using linux (on the laptop/pc not the PI) It has a built in FTDI
+driver, so theres no need to install one, if your using windows you
+will need to install a driver for your ver of windows the drivers are
+available here: <a href="http://www.ftdichip.com/FTDrivers.htm">FTDI drivers</a></p>
+<p>Just download the driver for your ver of windows and follow the install program instructions.&nbsp;</p>
+<p>Note: On windows7 it may find the FTDI driver automatically</p>
+<p><img style="width: 539px; height: 216px;" alt="" src="images/ftdi.html" /><br />
+</p>
+<p>Once installed you will need to use a program like <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">PuTTY</a><br />
+In my tests i was able to connect putty, setting the baud rate to 115200 and turning off 
+flow control (and leaving all the other settings at default). In my 
+case, the Serial port attached itself to the Windows &#8220;COM3&#8243;, so I told 
+putty to connect to that.<br />
+</p>
+<p>If your using linux you will need to install minicom.<br />
+From a terminal do this:<br />
+</p>
+<pre><span style="color: rgb(51, 102, 255);">sudo apt-get install minicom</span></pre>
+
+<p>Then start the software:</p>
+
+<pre><span style="color: rgb(51, 102, 255);">minicom -b 115200 -o -D /dev/ttyUSB0</span></pre>
+<p>The setting need to be as follows:<br />
+&#8226; <strong>Speed:</strong> 115200<br />
+
+&#8226; <strong>Bits</strong>: 8<br />
+
+&#8226; <strong>Parity:</strong> None<br />
+
+&#8226; <strong>Stop Bits:</strong> 1<br />
+
+&#8226; <strong>Flow Control:</strong> None<br />
+Once set you will need to save these setting, so please search for a
+tutorial for the PuTTY or minicon on the net, on how to do that.<br />
+</p>
+<p>Now we have everything setup lets take a look at the DexBasic uart
+code, as before go to the Tut folder in this case "Tut2", open up
+"FASMWARM.EXE" and then load the app.asm code, you should see this:<br />
+</p>
+<p><img style="width: 562px; height: 386px;" alt="" src="images/Tut2.html" /><br />
+</p>
+<p>Now lets take a closer look, first we have the comments, we know
+what these are for, they are just comments about what the program does
+and maybe who wrote it, because each line starts with a ; they are
+ignored by the compiler (assembler really ;)).</p>
+<p>Next we have this line: <img style="width: 562px; height: 22px;" alt="" src="images/Include.html" /><br />
+As before this is in all our programs "This needs to be the first thing after any comments and is needed in
+every "DexBasic" app you write, it set's stuff up and is where our macros
+are stored."<br />
+Then we come to some new code which you have not seen before<br />
+</p>
+<p><img style="width: 210px; height: 20px;" alt="" src="images/Uart_setup.html" /></p>
+<p>This sets the <strong>baud rate </strong>or bits per second, thats
+what data is transferd down Serial at. By internet speeds this is slow,
+but it is plenty fast enough for Serial.<br />
+The next bit of code is just a label we will use later on in the code to jump back too.<br />
+</p>
+<p><img style="width: 164px; height: 32px;" alt="" src="images/Tut2_lable.html" /><br />
+</p>
+<p>Next we have this code: <br />
+</p>
+<p><img style="width: 285px; height: 22px;" alt="" src="images/Tut2_print.html" /><br />
+</p>
+<p>This is the same as the print we have used before, but instead of
+printing to screen, it sends it down the Serial to be displayed by the
+program on the other end of the Serial.<br />
+You may also notice the "ln" on the end of the serial.print, this moves
+to the next line, if you do not want to move to the next line and want
+to print on the same line you would just use:<br />
+serial.print<br />
+The next bit of code:<br />
+</p>
+<p><img style="width: 116px; height: 25px;" alt="" src="images/delay.html" /><br />
+Just delay for a time before running the next bit of code.<br />
+Which is this:<br />
+</p>
+<p><img style="width: 172px; height: 26px;" alt="" src="images/Tut2_goto.html" /><br />
+</p>
+<p>Which just jumps back to the LetsLoop label to run the code after it again.<br />
+</p>
+<p><img style="width: 562px; height: 36px;" alt="" src="images/ProgSize.html" /></p>
+<p>And this:<br />
+</p>
+<p><img style="width: 562px; height: 17px;" alt="" src="images/Buff.html" /><br />
+</p>
+<p>We have already seen what these do and are in every DexBasic App.<br />
+As in the last tut go to run then compile and you should see this:<br />
+<img style="width: 290px; height: 243px;" alt="" src="images/assemble.png" /><br />
+</p>
+<p>Then click on File label, then open and open the kernel.asm file.<br />
+Then go to Run, then compile and once you see the above box, go to the
+Tut2 folder and copy the kernel.img file to the SD card (replacing the
+kernel.img thats on the SD, with the new one we have just made).<br />
+Note: you should of read the intro and Tut1 before this tutorial.<br />
+When you run Tut2 you should see something like this:<br />
+</p>
+<p><img style="width: 562px; height: 384px;" alt="" src="images/Tut2fin.html" /><br />
+</p>Note: You will see nothing on the PI screen if it is pluged in, as this demo only writes to uart.<br />
+<p>And that's all folks for Tut 2<br />
+</p>
+<hr style="width: 100%; height: 2px;" /></div>
+<div class="clear">
+<div id="content_bottom"><br />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+<!-- Mirrored from dex-os.github.io/DexBasic/Lesson2.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:43 GMT -->
+</html>

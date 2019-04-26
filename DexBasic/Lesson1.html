@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Mirrored from dex-os.github.io/DexBasic/Lesson1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:35 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head><title>DexBasic Lesson1</title>
+
+
+
+
+
+  
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen" /></head><body id="home">
+<div id="container">
+<div id="logo_wrapper">
+<div id="logo"><img src="abc.png" alt="Dex" /></div>
+</div>
+<div class="clear">
+<div id="content_side">
+<div id="navigation">
+<ul id="navlist">
+  <li><a href="DexBasic.html" id="homenav">Intro</a></li>
+  <li><a href="Language.html" id="overnav">Language<br />
+    </a></li>
+  <li><a href="Lesson1.html" id="overnav">Lesson 1<br />
+    </a></li>
+  <li><a href="Lesson2.html" id="overnav">Lesson 2<br />
+    </a></li>
+  <li><a href="Lesson3.html" id="overnav">Lesson 3<br />
+    </a></li>
+  <li><a href="Lesson4.html" id="overnav">Lesson 4<br />
+    </a></li>
+  <li><a href="Lesson5.html" id="overnav">Lesson 5<br />
+    </a></li>
+  <li><a href="Lesson6.html" id="overnav">Lesson 6<br />
+    </a></li>
+  <li><a href="Lesson7.html" id="overnav">Lesson 7<br />
+    </a></li>
+  <li><a href="Lesson8.html" id="overnav">Lesson 8</a></li>
+  <li><a href="DexBasic.zip" id="overnav">DexBasic<br />
+    </a></li>
+
+</ul>
+</div>
+<div id="quote">
+<h5>"Batteries not included... Some assembly required"</h5>
+</div>
+</div>
+<div id="content_wrapper">
+<div id="content">
+<h1>Lesson 1<br />
+</h1>
+<h2>For the DexBasic for the raspberry pi<br />
+</h2><p>OK, so you have run the hello demo on the raspberry pi and you
+have read the intro and looked at some basic commands. Now i will try
+and explain how you need to write the code and what each part does.<br />
+So go to the Tut1 folder and click on the "FASMWARM.EXE" in side that
+folder, than as before click on file, then open and load the app.asm
+file into the IDE<br />
+Now you may of noticed that i have included more than one copy of
+fasmwarm, thats to keep things simple and also to show that theres no
+installing with fasm, its just a single exe.<br />
+Anyway once loaded, you should see this:<br />
+</p>
+<p><img style="width: 562px; height: 386px;" alt="" src="images/Tut1_1.html" />w if <br />
+</p>
+<p>Let take a closer look at each bit and expain what it does.<br />
+The first bit is the Comments, which is text that is not used by the DexBasic, its only there to help 
+humans like us understand whats going on. You can tell if something is a
+ comment because there is a <strong>;</strong> at the beginning . Anything after the&nbsp;&nbsp; ;&nbsp; is ignored by the DexBasic (fasm) on that row. 
+In this example the person who wrote the comment decided to make it look
+ pretty and add *'s down the side but this isn't necessary.<br />
+
+  Comments are very useful and I strongly encourage every DexBasic app you 
+make have a comment in the beginning with information like who wrote it,
+ when you wrote it and what its supposed to do.<br />
+</p>
+<p><img style="width: 342px; height: 111px;" alt="" src="images/Comments.html" />&nbsp;<br />
+</p>
+<p>After the above comments you will see this:<br />
+</p>
+<p><img style="width: 562px; height: 22px;" alt="" src="images/Include.html" /><br />
+</p>
+<p>This needs to be the first thing after any commens and is need in
+every DexBasic app you write, it set stuff up and is where our macros
+are stored.<br />
+</p>
+<p>Then we have this:<br />
+</p>
+<p><img style="width: 276px; height: 21px;" alt="" src="images/load.html" /><br />
+</p>
+<p>This loads the bmp file "MyBmpImage" into the of screen buffer, the
+bmp file is already stored in our app when this is run at the address
+pointed to by the label "MyBmpImage" but for us to use that bmp we need
+to remove its header and store it in memory the right way, as bmp are
+stored up side down.<br />
+Next we have: <br />
+</p>
+<p><img style="width: 228px; height: 20px;" alt="" src="images/Color.html" /><br />
+Which set the color of fonts on the next print</p>
+<p>Then we have:<br />
+</p>
+<p><img style="width: 161px; height: 20px;" alt="" src="images/Locate.html" /><br />
+</p>
+<p>Which sets where to print the next string on the screen (off screen buffer raelly, but we will be dumping that to screen latter.<br />
+</p>
+<p>Next we have this:<br />
+</p>
+<p><img style="width: 270px; height: 18px;" alt="" src="images/Print.html" /><br />
+</p>
+<p>Well it prints whats in between the " ".<br />
+After that its just a repeat of above with different values, the next new command is this:<br />
+</p>
+<p><img style="width: 189px; height: 17px;" alt="" src="images/Gosub.html" /><br />
+</p>
+<p>This runs the code that at the address MyFunction, then return to the next command after the "gosub", which in this case is:<br />
+</p>
+<p><img style="width: 168px; height: 18px;" alt="" src="images/Goto.html" /><br />
+</p>
+<p>This is like the "gosub" but it does not return<br />
+</p>
+<p>The next new command is this:<br />
+</p>
+<p><img style="width: 246px; height: 18px;" alt="" src="images/sync.html" /><br />
+</p>
+<p>This writes our off screen buffer to screen.<br />
+Next we have this:<br />
+</p>
+<p><img style="width: 244px; height: 20px;" alt="" src="images/End.html" /><br />
+</p>
+<p>This is where our program ends (just loops for now).<br />
+There is also this, that is where our bmp is stored, before we load it to buffer.<br />
+</p>
+<p><img style="width: 252px; height: 49px;" alt="" src="images/FileLoad.html" /><br />
+</p>
+<p>Note: its says "Pi.bmp" instead of "Images\Bg.bmp", but you get the idea.<br />
+We also have this:<br />
+</p>
+<p><img style="width: 562px; height: 36px;" alt="" src="images/ProgSize.html" /><br />
+Which is put at end of our program, so we know the size of it.<br />
+Next is this:<br />
+</p>
+<p><img style="width: 562px; height: 17px;" alt="" src="images/Buff.html" /><br />
+This is the address of our off screen buffer.<br />
+</p>
+<p>Now all we need to do is click on run then compile and we should see this:<br />
+</p>
+<p><img style="width: 290px; height: 243px;" alt="" src="images/assemble.png" /><br />
+</p>
+<p>It will say a differant size, but thats ok.<br />
+Next we goto "file" and then "open" then we click on "kernel.asm" and "open" than as before, we click "Run" then "compile".<br />
+Once we see the above box, we are ready to test it on the PI.<br />
+So take the kernel.img file you have just made ( it will be in the Tut1
+folder) and put it on the SD card (replacing the one thats you put on
+earlier).<br />
+Put it in your raspberry pi and power it up.</p>
+<p>You should see this:<br />
+</p>
+<p><img style="width: 562px; height: 371px;" alt="" src="images/Tut1Shot.png" /><br />
+</p>
+<p>And that's all folks for Tut 1<br />
+</p>
+
+<hr style="width: 100%; height: 2px;" /></div>
+<div class="clear">
+<div id="content_bottom"><br />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+<!-- Mirrored from dex-os.github.io/DexBasic/Lesson1.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:38 GMT -->
+</html>

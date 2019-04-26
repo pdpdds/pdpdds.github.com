@@ -1,0 +1,53 @@
+;=================================================;
+;   ____                    _____   ____     2012 ;
+;  /\  _`\                 /\  __`\/\  _`\        ;
+;  \ \ \/\ \     __   __  _\ \ \/\ \ \,\L\_\      ;
+;   \ \ \ \ \  /'__`\/\ \/'\\ \ \ \ \/_\__ \      ;
+;    \ \ \_\ \/\  __/\/>  </ \ \ \_\ \/\ \L\ \    ;
+;     \ \____/\ \____\/\_/\_\ \ \_____\ `\____\   ;
+;      \/___/  \/____/\//\/_/  \/_____/\/_____/   ;
+;                                                 ;
+;            DexOS System Architecture            ;
+;              By Craig Bamford (Dex)             ;
+;=================================================;
+
+Boot
+====
+Kernel32.exe which is the main part of DexOS, is loaded by the DexOS's bootloader
+(BootProg by Alexei A. Frounze) to 0x60 after some checks for things like "MZ" signature etc,
+it does any relocating work, that is needed for a "MZ" exe, once that has been done the register
+values are set to dl = boot drive number, cs:ip = program entry point, ss:sp = program stack,
+ds = es = 50h, other stuff depends on exe header.
+The first thing after being loaded, that kernel32.exe does is to check for all hdd and cd drives
+and stores there address for later use, then the drive that the OS was booted from, is detected
+and stored, next ram size is detected and stored, then what is present on pci-bus is also
+detected, next PS2 mouse is detected and set up if present, then we enable A20, reprogram the
+text fonts, finally we test for vesa, we are now ready to start the move from realmode to pmode.
+More stuff maybe added here to test for as DexOS use base grows.
+
+Next we 'cli' to turn off interrupts and then set up the GDT, to make addressing identical in
+real mode and protected mode, we set the base of the code and data descriptors to DS * 16.
+This number is computed at run-time, the other numbers in the GDT can be done at assemble-time,
+at the same time we store the base-add-on, as we may need it later.
+We also setup IDT,then we set the PE bit in register CR0 to begin the switch to protected mode,
+then we execute a far JMP instruction.
+
+Switching to PM
+===============
+We then move the "sys_data" (data descriptors) in to ax, to then be moved to ds, ss, es, fs, gs,
+we are now in pmode, from here we remap pic, unmask irqs,
+turn floppy motor off ( only if it boots from A: drive), Set keyboard leds, next we set text
+colors, store boot drive, tests for fat type and if there's enough ram (need min 64MB's of ram,
+NOTE: This can be change by reassembling the kernel32 to use has little as 2MB of Ram), if less
+Than 64MB of ram it Prints error message and stops.
+If enough ram detected it than loads the FAT driver and finally finds and loads DexOS's
+command line interface (Cli.bin) to 0x400000 (4MB), Which control is passed onto from the
+kenel.
+
+command line interface
+======================
+One of the first things the CLI does is check for fat driver loaded if found it change dir to
+drivers, and loads and runs the drivers that listed in startup.bat, than trys to load and run
+the GUI, If theres vesa and it supports vesa mode 800x600 32/24BPP control is give to the GUI
+program (Gui.bin).
+If its not supported or return to CLI button is pressed control is give back to the CLI program.

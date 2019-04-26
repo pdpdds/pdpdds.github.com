@@ -1,0 +1,75 @@
+;=================================================;
+;   ____                    _____   ____     2012 ;
+;  /\  _`\                 /\  __`\/\  _`\        ;
+;  \ \ \/\ \     __   __  _\ \ \/\ \ \,\L\_\      ;
+;   \ \ \ \ \  /'__`\/\ \/'\\ \ \ \ \/_\__ \      ;
+;    \ \ \_\ \/\  __/\/>  </ \ \ \_\ \/\ \L\ \    ;
+;     \ \____/\ \____\/\_/\_\ \ \_____\ `\____\   ;
+;      \/___/  \/____/\//\/_/  \/_____/\/_____/   ;
+;                                                 ;
+;            DexOS Building Installing            ;
+;              By Craig Bamford (Dex)             ;
+;=================================================;
+
+Howto boot into DexOS
+=====================
+There are Four main ways to boot into DexOS, you can boot from a 1.44 Floppy Disk, from a cd or
+USB fob or from Dos. First we will take a look at, how to boot from a floppy disk.
+Floppy boot disk You need to obtain a blank/formatted 3.5" 1.44MB floppy disk, place this disk
+in the A: drive and click on the 'DexOS.exe', this will create a bootable DexOS floppy.
+All you need to do now, is reboot with the floppy in the A: drive, NOTE: if it boots to your
+normal OS, you need to make shore that the BIOS is set to boot from floppy drive first.
+
+CD Rom
+======
+To make a bootable cd use your cd/dvd burn software to burn the iso to the cd,
+Usually your cd burn program will open up as soon as you click on the iso.
+Once the cd is burned, put it in the first cd/dvd drive and reboot your pc, also making sure
+the BIOS is set to boot cd/dvd before Hdd.
+
+FreeDos
+=======
+To boot from Dos, it could not be simpler, just download the kernel32.zip, put the
+kernel32.exe in your C dir and restart your pc in Dos and type kernel32, You should then be at
+the DexOS prompt, you can also put the kernel32.exe on a Dos floppy (eg: 98 startup disk or
+FreeDos disk), reboot and type kernel32 from the Dos prompt.
+NOTE: you need to be in real Dos, not a win98 Dosbox and need to use the Dos ver of kernel32 eg:
+The one in the folder called DexOS4Dos, you need to make sure that the PC THAT AS THE DOS ON AS
+64MB of ram or more.
+As the Dos ver does not check for ram size (as Dos does not report more than 1MB of ram).
+
+USB Fob
+=======
+You can also boot DexOS from a usb key-fob, if your BIOS will boot from a usb drive.
+To do this you need to put DexOS on the usb fob, there a program we have written called
+'UsbDex.exe'
+Its in the folder called 'DexUSB_2012'.
+Also in that folder is a exe called 'usb_format.exe', that you need to use to format the USB fob
+to FAT (Which is fat16), do not use the windows format tool as it does not format it right.
+Once formated with the 'usb_format.exe' tool, you need to run the 'UsbDex.exe' program, first it
+ask if its found the right device (drive) if its right click yes, if its wrong click no, its
+should	find the right USB drive you want to us, once you got the right device, it ask if you
+want to use floppy emulation, now some PC use floppy emulation to boot usb devices overs use
+harddrive emulation, some use both anyway best to try floppy if that does not work try harddrive.
+Anyway if you click floppy it will put a DexOS floppy image on to the usb fob (this will mean)
+When you plug it into win/linux it will see it as a 1.44MB floppy disk, yes thats right, no
+mater how big your fob was it will now be only 1.44MB, do not where about this to get full size
+back (once you want to remove DexOS), you can just format it and it will be full size again.
+If you chose hdd emulation it will write the boot sector to the fob and ask if you want to add
+DexOS files to the fob, click yes.
+Once done just put you fob in a usb slot and reboot your PC.
+
+Now it depends on your BIOS set up as to if it will boot straight up, if it just boots to your
+normal OS, you need to ever go into your BIOS seting and click boot opions and set it to boot
+from  USB first or some PC have a boot opion when you boot up to press f12 or f2 for boot menu.
+It should be printed on the screen when you boot your PC (you need to be quick to see it).
+Anyway once you find it it should boot to the usb and you can test it and read/write to the fob.
+Once finished, just switch off the PC and remove the usb fob and you can go back to your normal
+OS.
+NOTE: If you run the 'UsbDex.exe' under vista/win7 you need to run the programs as admin.
+
+HardDrive
+=========
+There also is a program, that comes with DexOS's bootloader 'bootprog' that
+lets you boot from a fat16 formatted hdd.
+I will be writing a DexOS install program soon (date is 10/05/2012).

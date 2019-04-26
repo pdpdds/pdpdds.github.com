@@ -1,0 +1,113 @@
+;=================================================;
+;   ____                    _____   ____     2012 ;
+;  /\  _`\                 /\  __`\/\  _`\        ;
+;  \ \ \/\ \     __   __  _\ \ \/\ \ \,\L\_\      ;
+;   \ \ \ \ \  /'__`\/\ \/'\\ \ \ \ \/_\__ \      ;
+;    \ \ \_\ \/\  __/\/>  </ \ \ \_\ \/\ \L\ \    ;
+;     \ \____/\ \____\/\_/\_\ \ \_____\ `\____\   ;
+;      \/___/  \/____/\//\/_/  \/_____/\/_____/   ;
+;                                                 ;
+;         DexOS Frequently Asked Questions        ;
+;              By Craig Bamford (Dex)             ;
+;=================================================;
+
+General
+=======
+  Q: What is DexOS ?
+  A: DexOS is a very fast 32Bit, Single tasking, OS for 486+ PC's, written in assembly.
+     There's also a ARM port in the making.
+
+  Q: Is the sourcecode available ?
+  A: Yes, full fasm sourcecode is available from the web site (see DexOS.zip).
+
+  Q: Where can I get software for DexOS ?
+  A: You will find it in the App folder in the main zip and in the download area , we collect
+     all the software we and other people make for DexOS.
+
+  Q: When I run DexOS will it do anything to my Win9x/XP/win7/Linux/BeOS installation ?
+  A: No!, When you boot DexOS from a floppy or cd,USB fob, it does not touch your harddisks.
+
+  Q: How do I shutdown DexOS ?
+  A: Just hit the powerbutton, or you can type "exit", at the command prompt, if you booted
+     from dos and want to go back to dos.
+
+  Q: Will DexOS run on 486's only ?
+  A: No, 486+ means 486 and higher. So, it also runs on 586's, pentiums etc...
+
+  Q: How do I run Applications ?
+  A: You can download several applictions in the download area. You can just copy these files to
+     your DexOS Bootfloppy like any other file, from with in window or linux etc. Then boot the
+     OS and type 'test.dex'or 'test'( without the '') for example, then press enter, or use
+     the menu from the GUI.
+
+Community
+=========
+  Q: How can I find other people who use DexOS ?
+  A: DexOS has it's own forum for users and programmers, run by jas2o. There's also a IRC or
+     through mailinglists.
+
+  Q: Where can I find DexOS users on IRC ?
+  A: Server: irc.freenode.net - Channel: #dexos irc://irc.freenode.org/dexos
+
+  Q: Can I join a DexOS mailinglist ?
+  A: Yes, To subscribe, send an email with a subject of 'subscribe'to
+     dexos-request@freelists.orgTo unsubscribe, send an email with a subject of 'unsubscribe'
+     to dexos-request@freelists.org Once subscribed, you can email the list members by sending
+     an email to dexos@freelists.org
+
+Technical
+=========
+  Q: What are the SystemRequirements for DexOS ?
+  A: A 486+ PC with a floppy-drive ! or CD rom or usb boot option.
+
+  Q: Is that ALL ?!
+  A: For booting DexOS, yes. Some applications may require for example a VESA2.0 compatible
+     Videocard, but these requirements will be mentioned next to the download. We try to keep
+     the requirements as minimal as possible so everyone should be able to run it on any PC.
+
+  Q: Can I boot DexOS from a HD ?
+  A: Yes. As in you can boot DexOS from your pre Fat16 formated hdd, using"bootprog" ,only
+     from a fat16 formatted harddrive for now, As bootprog does not use fat32, which DexOS users
+     for booting, But we're working on it.
+
+  Q: Are there any plans on porting DexOS to Alpha or PPC or ...?
+  A: Yes, As well as DexOS for the x86,we are working on a ARM port.
+
+  Q: I have a MAC. Can I use DexOS ?
+  A: You can't use it on a plain Macintosh. But connectix has written a PC emulator that allows
+     DexOS to run on a Macintosh (Significantly slower I might add, but it works) It's called
+     VirtualPC.
+
+  Q: How about PC Emulators
+  A: Members have successfully run DexOS in Qemu, Bochs, VirtualBox, DosBOX.
+
+Programming
+===========
+  Q: Why program for DexOS instead of for any other Operating System ?
+  A: DexOS was build for speed, and has become the fasted OS available. Another feature of
+     DexOS is it's modulair architecture which has resulted in a great development platform.
+     It's very easy to add or replace parts of the Operating System.
+
+  Q: What programming languages can I use to make software for DexOS ?
+  A: DexOS itself is written in pure assembley (FASM). So it's a very good platform to use
+     assembly code. Also, Basic is a very good choice, As theres work on a basic like language,
+     that users fasms macros to let coders write basic programs for DexOS, these will also be
+     portable to the ARM ver of DexOS.
+
+  Q: Is it hard to program for DexOS ?
+  A: No, Not at all ! It's as easy as programing for dos, but with upto 4GB of memory instead of
+     1MB and simpler address.
+
+  Q: Are there any example sourcecodes available ?
+  A: There is a very nice beginners tut, by solidus117, with example sourcecode, in the document
+     section, also most applications and modules written by 3th parties come with full sourcecode.
+
+  Q: I'd like to develop something for DexOS, just for fun... What's missing ?
+  A: I think any thing that adds to the usability of DexOS would be good eg: games, paint
+     programs, image viewers, other than BMP, debug type programs, text or gui calculator,
+     drivers, vesa graphic demos to show what can be done. etc.
+
+  Q: Where can I get help when I'm making something for DexOS ?
+  A: We will help you in any way we can with system-information, URL's, documentation etc etc.
+     You can also post questions or ask someone to join you in the Programming part of DexOS
+     Forum.

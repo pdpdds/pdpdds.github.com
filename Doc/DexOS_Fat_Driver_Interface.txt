@@ -1,0 +1,362 @@
+;=================================================;
+;   ____                    _____   ____     2012 ;
+;  /\  _`\                 /\  __`\/\  _`\        ;
+;  \ \ \/\ \     __   __  _\ \ \/\ \ \,\L\_\      ;
+;   \ \ \ \ \  /'__`\/\ \/'\\ \ \ \ \/_\__ \      ;
+;    \ \ \_\ \/\  __/\/>  </ \ \ \_\ \/\ \L\ \    ;
+;     \ \____/\ \____\/\_/\_\ \ \_____\ `\____\   ;
+;      \/___/  \/____/\//\/_/  \/_____/\/_____/   ;
+;                                                 ;
+;            DexOS Fat Driver Interface           ;
+;              By Craig Bamford (Dex)             ;
+;=================================================;
+
+1.  Select default drive
+2.  Get current default drive
+3.  Set Disk Transfer Area Address
+4.  Get free disk space
+5.  Create subdirectory
+6.  Remove subdirectory
+7.  Set working directory
+8.  CreateWrite file
+9.  Open file
+10. Close file
+11. Read file
+12. Delete file
+13. Seek file
+14. Get/Set file attributes
+15. Get current directory
+16. Find First
+17. Find_Next
+18. Rename file
+19. Get/Set file date
+
+FunctionNunber 1
+;=======================================================  ;
+;  SELECT DEFAULT DRIVE                                   ;
+;=======================================================  ;
+;                                                         ;
+; IN:  DL = new default drive (0=A:, 1=B:, 2=C: etc)      ;
+;                                                         ;
+; OUT  AL = number of potentially valid drive letters     ;
+;                                                         ;
+; Notes: the return value is the highest drive present    ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 2
+;=======================================================  ;
+;  GET CURRENT DEFAULT DRIVE                              ;
+;=======================================================  ;
+;                                                         ;
+; IN:                                                     ;
+;                                                         ;
+; OUT  AL =  drive (0=A:, 1=B:, 2=C:, etc)                ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 3
+;=======================================================  ;
+; SetDTA_Address.                                         ;
+;                                                         ;
+; Set DTA table adress buffer                             ;
+; Needs to be 48 bytes at least                           ;
+;                                                         ;
+; LayOut:                                                 ;
+; DTA = 21 bytes ; ignore useless DOS data                ;
+; fattr = 1 byte   ; file attribute                       ;
+; ftime = 2 bytes  ; file creation/modification time      ;
+; fdate = 2 bytes  ; file creation/modification date      ;
+; fsize = 2 bytes  ; file size                            ;
+; fsmth = 2 bytes  ;                                      ;
+; fname = 14 bytes ; file name+etc terminated with zero   ;
+; fexten = 3 bytes ; file Exten                           ;
+; zero = 1 byte    ; zero end byte                        ;
+;                                                         ;
+;=======================================================  ;
+; IN:   EDX = DTA table adress buffer                     ;
+;                                                         ;
+; OUT:                                                    ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 4
+;=======================================================  ;
+;  Get disk free space                                    ;
+;=======================================================  ;
+;                                                         ;
+; IN:   DL = 0 for current drive                          ;
+;                (NOTE: more will be add latter)          ;
+;                                                         ;
+; OUT:  If carry is set,                                  ;
+;       AX = 0FFFFh if disk error.                        ;
+;                                                         ;
+;       If carry NOT set                                  ;
+;       AX = sectors per cluster                          ;
+;       BX = number of free clusters                      ;
+;       CX = bytes per sector                             ;
+;       DX = total clusters on drive                      ;
+;                                                         ;
+;       free space on drive in bytes is AX * BX * CX      ;
+;        total space on drive in bytes is AX * CX * DX    ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 5
+;=======================================================  ;
+; MkDir.                                                  ;
+;                                                         ;
+; Creates a Subdirectory                                  ;
+;=======================================================  ;
+; IN:   EDX = Pointer to Dir/Path name                    ;
+;                                                         ;
+; OUT:  CF clear if successful AX destroyed               ;
+;       CF set on error AX = error code (03h,05h)         ;
+;=======================================================  ;
+FunctionNunber 6
+;=======================================================  ;
+; RmDir.                                                  ;
+;                                                         ;
+; Remove a Subdirectory                                   ;
+;=======================================================  ;
+; IN:   EDX = Pointer to Dir/Path name                    ;
+;                                                         ;
+; OUT:  CF clear if successful AX destroyed               ;
+;       CF set on error                                   ;
+;              AX = error code (03h,05h,06h,10h)          ;
+;                                                         ;
+; NOTE: Directory must be empty                           ;
+;          (contain only '.' and '..' entries) ITS UP TO  ;
+;           THE CALLER to check  for this.                ;
+;=======================================================  ;
+FunctionNunber 7
+;=======================================================  ;
+;  SET CURRENT DIRECTORY                                  ;
+;=======================================================  ;
+;                                                         ;
+; IN:  DS:EDX -> ASCIZ pathname to become current         ;
+;               directory (max 64 bytes)                  ;
+;                                                         ;
+; OUT  CF clear if successful, AX destroyed               ;
+;      CF CF set on error AX = error code (03h)           ;
+;                              03h = path not found       ;
+;                                                         ;
+; NOTES:                                                  ;
+;      If new directory name includes a drive letter,     ;
+;      the default drive is not changed, only the         ;
+;      current directory on that drive.                   ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 8
+;=======================================================  ;
+; CreateWriteFile                                         ;
+;=======================================================  ;
+;                                                         ;
+; IN:   EDX = Address of buffer containing data           ;
+;       ECX = file size in bytes                          ;
+;       EBX = Pointer to file name/path                   ;
+;                                                         ;
+; OUT:  EAX  = Number of bytes written                    ;
+;       Carry set if not found.                           ;
+;       If carry is set AX = error code                   ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 9
+;=======================================================  ;
+; OpenFile.                                               ;
+;                                                         ;
+; Open a existing file                                    ;
+;=======================================================  ;
+; IN:   EDX = Pointer to file name                        ;
+;                                                         ;
+; OUT:  AX  = File handler                                ;
+;       ECX = File Size in bytes                          ;
+;       Carry set if not found.                           ;
+;       If carry is set AX = error code                   ;
+;=======================================================  ;
+FunctionNunber 10
+;=======================================================  ;
+; CloseFile.                                              ;
+;                                                         ;
+; Close file                                              ;
+;=======================================================  ;
+; IN:   EBX = File handler                                ;
+;                                                         ;
+; OUT:  Carry clear if successful.                        ;
+;       Carry set on error, AX = error code               ;
+;=======================================================  ;
+FunctionNunber 11
+;=======================================================  ;
+; ReadFile.                                               ;
+;                                                         ;
+; Open a existing file                                    ;
+;=======================================================  ;
+; IN:   EDX = Place to load file too                      ;
+;       EBX = File handler                                ;
+;       ECX = Number of bytes to read                     ;
+;                                                         ;
+; OUT:  EAX  = Number of bytes read                       ;
+;       Carry clear if OK                                 ;
+;       If carry is set AX = error code                   ;
+;=======================================================  ;
+FunctionNunber 12
+;=======================================================  ;
+; DelFile                                                 ;
+;=======================================================  ;
+;                                                         ;
+; IN:   EDX = Pointer to file name to del                 ;
+;                                                         ;
+; OUT:  CF clear if successful.                           ;
+;       CF set error.                                     ;
+;       If carry is set AX = error code                   ;
+;       error code (02h,03h,05h)                          ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 13
+;=======================================================  ;
+; Seek file                                         ***   ;
+;=======================================================  ;
+;                                                         ;
+; IN:  CL = origin of move 00h start of file 01h current  ;
+;           file position 02h end of file                 ;
+;      BX = file handle                                   ;
+;     EDX = offset from origin of new file position       ;
+;                                                         ;
+; OUT  CF clear if successful,                            ;
+;     EDX = new file position in bytes from start of file ;
+;      CF set on error, AX = error code (01h,06h)         ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 14
+;=======================================================  ;
+; Get/Set file attributes                                 ;
+;=======================================================  ;
+;  GET                                              ***   ;
+;=======================================================  ;
+;                                                         ;
+; IN:  EDX -> ASCIZ filename                              ;
+;      BL =   00h                                         ;
+;                                                         ;
+; OUT  CF clear if successful CX = file attributes        ;
+;      CF set on error, AX = error code (01h,02h,03h,05h) ;
+;                                                         ;
+;=======================================================  ;
+;  SET                                              ***   ;
+;=======================================================  ;
+;                                                         ;
+; IN:  EDX -> ASCIZ filename                              ;
+;      BL =   01h                                         ;
+;      CX = new file attributes                           ;
+;                                                         ;
+; OUT  CF clear if successful CX = file attributes        ;
+;      CF set on error, AX = error code (01h,02h,03h,05h) ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 15
+;=======================================================  ;
+;  GET CURRENT DIRECTORY                                  ;
+;=======================================================  ;
+;                                                         ;
+; IN:  DL =  drive (00h = default, 1=A:, 2=B:, 3=C:, etc) ;
+;      DS:ESI -> 64-byte buffer for ASCIZ pathname        ;
+;                                                         ;
+; OUT  CF clear if successful                             ;
+;      CF set on error, AX = error code (0Fh)             ;
+;                                                         ;
+; NOTES:                                                  ;
+;      The returned path does not include a drive         ;
+;      or the initial backslash.                          ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 16
+;=======================================================  ;
+; Find_First                                              ;
+;                                                         ;
+; Are used to search for files specified using ambiguous  ;
+; file references. An ambiguous file reference is any     ;
+; filename containing the "*" and "?" wildcard            ;
+; characters. The Find First File function is used to     ;
+; locate the first such filename within a specified       ;
+; directory, the Find Next File function is used to find  ;
+; successive entries in the directory.                    ;
+;=======================================================  ;
+; IN:    CX = Attributes                                  ;
+;       EDX = Pointer to Zero ending filename             ;
+;                                                         ;                                                         ;
+; OUT:  If carry is set,                                  ;
+;       AX contains one of the following error codes      ;
+;        2  = File not found                              ;
+;       18  = No more files                               ;
+;                                                         ;
+;       If carry NOT set                                  ;
+;       DTA table adress buffer filled in                 ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 17
+;=======================================================  ;
+; Find_First                                              ;
+;                                                         ;
+; Are used to search for files specified using ambiguous  ;
+; file references. An ambiguous file reference is any     ;
+; filename containing the "*" and "?" wildcard            ;
+; characters. The Find First File function is used to     ;
+; locate the first such filename within a specified       ;
+; directory, the Find Next File function is used to find  ;
+; successive entries in the directory.                    ;
+;=======================================================  ;
+; IN:    CX = Attributes                                  ;
+;       EDX = Pointer to Zero ending filename             ;
+;                                                         ;                                                         ;
+; OUT:  If carry is set,                                  ;
+;       AX contains one of the following error codes      ;
+;        2  = File not found                              ;
+;       18  = No more files                               ;
+;                                                         ;
+;       If carry NOT set                                  ;
+;       DTA table adress buffer filled in                 ;
+;                                                         ;
+;=======================================================  ;
+FunctionNunber 18
+;=======================================================  ;
+; ReName                                                  ;
+;=======================================================  ;
+;                                                         ;
+; IN:   EDX = ASCIZ filename of existing file             ;
+;       EDI = ASCIZ new filename (No Path)                ;
+;                                                         ;
+; OUT:  CF clear if successful.                           ;
+;       CF set error.                                     ;
+;       If carry is set AX = error code                   ;
+;       error code (02h,03h,05h,11h)                      ;
+;                                                         ;
+;=======================================================  ;
+*** = NOT IMPLEMENTED YET	
+
+Example Code One
+================:
+;==================== [Code Start] =====================  ;
+;              Test and get driver address:               ;
+;=======================================================  ;
+mov	esi,ID						  ; module id
+call	[ModuleFunction]				  ; call function
+jc	ErrorFatModNotLoaded				  ; jump is not loaded
+mov	[Fatmod],eax					  ; save the module address
+							  ;
+;CODE GOES HERE                                           ;
+							  ;
+ErrorFatModNotLoaded:					  ; get here if not loaded
+;CODE GOES HERE                                           ;
+ID    db 'DEXOSFAT',0					  ; The FAT module ID
+;===================== [Code End] ======================  ;
+
+Example Code Two
+================:
+;==================== [Code Start] =====================  ;
+;        Simple Get_Current_Directory example:            ;
+;=======================================================  ;
+	mov	esi,CreateFileTempDirBuff+1		  ; the buffer for current dir 64 bytes
+	mov	eax,15					  ;
+	call	[Fatmod]				  ; Get_Current_Directory
+							  ; no error for get current dir
+;===================== [Code End] ======================  ;
+NOTE:
+      When you get current dir your buffer needs to start with \
+      that why its +1
+      When you set it, its NOT + 1
+      Its the same in Dos etc.

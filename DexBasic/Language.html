@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Mirrored from dex-os.github.io/DexBasic/Language.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:28 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head><title>DexBasic language</title>
+
+
+
+  
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen" /></head><body id="home">
+<div id="container">
+<div id="logo_wrapper">
+<div id="logo"><img src="abc.png" alt="Dex" />
+</div>
+</div>
+<div class="clear">
+<div id="content_side">
+<div id="navigation">
+<ul id="navlist">
+  <li><a href="DexBasic.html" id="overnav">Intro</a></li>
+  <li><a href="Print.html" id="landnav">print</a></li>
+  <li><a href="Color.html" id="portnav">color</a></li>
+  <li><a href="Cls.html" id="connav">cls</a></li>
+  <li><a href="Locate.html" id="11homenav">locate</a></li>
+  <li><a href="Goto.html" id="overnav">goto</a></li>
+  <li><a href="Gosub.html" id="landnav">gosub</a></li>
+  <li><a href="Return.html" id="portnav">return</a></li>
+  <li><a href="end.html" id="connav">end</a></li>
+  <li><a href="Substart.html" id="landnav">substart</a></li>
+  <li><a href="Load.html" id="portnav">load</a></li>
+  <li><a href="Put.html" id="connav">put</a></li>
+  <li><a href="Screen.html" id="11homenav">screen</a></li>
+  <li><a href="Alpha.html" id="overnav">alpha</a></li>
+  <li><a href="Delay.html" id="landnav">delay</a></li>
+  <li><a href="DelayMicroseconds.html" id="landnav">delayMicroseconds</a></li>
+  <li><a href="Sync.html" id="portnav">sync</a></li>
+
+  <li><a href="Syncs.html" id="landnav">syncs</a></li>
+  
+  <li><a href="Serial_setup.html" id="landnav">serial.setup</a></li>
+  <li><a href="Serial_print.html" id="landnav">serial.print</a></li>
+  <li><a href="Serial_println.html" id="landnav">serial.println</a></li>
+  <li><a href="PinMode.html" id="landnav">pinMode<br />
+</a></li>
+  <li><a href="DigitalWrite.html" id="landnav">digitalWrite<br />
+</a></li>
+
+
+</ul>
+</div>
+<div id="quote">
+<h5>"More commands to come"</h5>
+</div>
+</div>
+<div id="content_wrapper">
+<div id="content">
+<h1>DexBasic<br />
+</h1>
+<h2>The Bare Metal Basic Programming Language.. </h2>
+<p>This is just a very basic intro into the DexBasic programming
+language, well the most important thing you need to know about the
+language is that you are not programming in basic at all, but Assembly.
+Before you run and hide, i am going to&nbsp; hide the assembly part
+under a basic like language, using assembly <a style="color: rgb(153, 153, 153);" href="http://en.wikipedia.org/wiki/Assembly_language#Macros" target="_blank">Macro</a>.<br />
+But you will still have most of the advantages of code in full ASM, but
+with a more beginner friendly programming language.<br />
+Once you have made some porgress in the basic like language you can add
+some assembly code anywhere in the code, thats if you want to, you may
+just want to get the job done in the fastest possible way and just use
+the basic commands to do that and leave the low level stuff to us.</p>
+<p>The basic language its self is not based on any one dialect of
+basic, but a mix of old and new basics from qbasic to darkbasic, plus
+some new commands.<br />
+The list here is not anywhere near the full language, but just enough
+to show you whats in the tutorial do, we are adding new commands
+everyday and if people find a bare metal basic language useful, then
+the language will be extended, if not, theres little point intaking it
+much further.</p>
+<p>There are some key things that need to be in every app you program in DexBasic code, they
+include these:<br />
+</p>
+<p><img style="width: 562px; height: 22px;" alt="" src="images/Include.html" /><br />
+</p>
+<p>This set's some key things up and store our macro's, so you must
+included is as the first code.<br />
+Next is this piece of code<br />
+</p>
+<p><img style="width: 562px; height: 36px;" alt="" src="images/ProgSize.html" /><br />
+</p>
+<p>This bit of code placer's the label "ProgramSize" aligned on a 4
+byte boundary, so its address in memory is a multiply of 4.<br />
+The label "ProgramSize" is used to work out the size of the program and
+must be at the end of the program.<br />
+</p>
+<p>If are outputing info to a screen, you will also need this after the
+above code<br />
+</p>
+<p><img style="width: 562px; height: 17px;" alt="" src="images/Buff.html" /><br />
+</p>
+<p>This is the address of our off screen buffer, which to anyone that
+knows about coding is out side the end of our program, this is find as
+long as the buffer size plus the size of kernel.img is not bigger than
+the available ram, which in these tuts its not.<br />
+By doing it this way, you will make your kernel.img smaller on the disk
+(sd card).<br />
+I will show you how to test size in one of the tuts.<br />
+</p>
+<hr style="width: 100%; height: 2px;" />
+<p><br />
+</p>
+</div>
+<br />
+</div>
+</div>
+</div>
+
+</body>
+<!-- Mirrored from dex-os.github.io/DexBasic/Language.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:35 GMT -->
+</html>

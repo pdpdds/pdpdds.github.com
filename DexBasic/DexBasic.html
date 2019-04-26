@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- Mirrored from dex-os.github.io/DexBasic/DexBasic.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head><title>DexBasic for raspberry pi</title>
+
+
+
+
+
+
+  
+
+  
+  
+  <link rel="stylesheet" type="text/css" href="styles.css" media="screen" /></head><body id="home">
+<div id="container">
+<div id="logo_wrapper">
+<div id="logo"><img src="abc.png" alt="Dex" />
+</div>
+</div>
+<div class="clear">
+<div id="content_side">
+<div id="navigation">
+<ul id="navlist">
+  <li><a href="DexBasic.html" id="homenav">Intro</a></li>
+  <li><a href="Language.html" id="overnav">Language<br />
+    </a></li>
+  <li><a href="Lesson1.html" id="overnav">Lesson 1<br />
+    </a></li>
+  <li><a href="Lesson2.html" id="overnav">Lesson 2<br />
+    </a></li>
+  <li><a href="Lesson3.html" id="overnav">Lesson 3<br />
+    </a></li>
+  <li><a href="Lesson4.html" id="overnav">Lesson 4<br />
+    </a></li>
+  <li><a href="Lesson5.html" id="overnav">Lesson 5<br />
+    </a></li>
+  <li><a href="Lesson6.html" id="overnav">Lesson 6<br />
+    </a></li>
+  <li><a href="Lesson7.html" id="overnav">Lesson 7<br />
+    </a></li>
+  <li><a href="Lesson8.html" id="overnav">Lesson 8</a></li>
+<li><a href="DexBasic.zip" id="overnav">DexBasic zip</a></li>
+
+</ul>
+</div>
+<div id="quote">
+<h5>"Batteries not included... Some assembly required"</h5>
+</div>
+</div>
+<div id="content_wrapper">
+<div id="content">
+<h1>DexBasic<br />
+</h1>
+<h2>For the Raspberry pi<br />
+</h2>
+<p><span style="font-weight: bold;">DexBasic</span> is a cross between
+two coding projects i am working on, one a
+embedded operating system and the other a basic like language, which
+uses
+the powerful macros in fasm (Flat Assembler). This basic like language
+gives you the power of ASM with the ease of basic.<br />
+When you combined this with the low level access of a embedded
+operating systems. You start to see how useful DexBasic could be, not
+only as a teaching tool, but also as a way to fast track prototyping
+new electronic devices, from a software point of view.<br />
+The&nbsp; embedded ver of DexBasic is only available for the raspberry
+pi, so you will need a raspberry pi, the language part of DexBasic is
+also available for windows, linux, Dos and x86 ver of DexOS.</p>
+<p><span style="font-weight: bold;">NOTE: Before we start, this is for people who want to code on the raspberry pi without a OS (bare metal) and no linux.</span></p>
+<p>So
+to get started you will need a IDE, (which includeds fasmArm, the Arm
+ver of fasm),
+you can get the latest ver from the fasm site, but i have included a
+zip file with all you need, but once your past the basic's, make sure
+your using the latest ver, so pop down to the fasm web site to check
+what the latest ver is. Now i always use the K.I.S.S philosophy in
+all my work and this project is no exception, so the IDE needs no
+installing just a single exe, it runs in all windows and under wine in
+linux.<br />
+If the project take off i will code a new IDE based on the <span class="st"><em>Arduino IDE,</em></span> talking of&nbsp; <span class="st"><em>Arduino</em></span> the idea behind DexBasic is very
+much like the idea behind the <span class="st"><em>Arduino,&nbsp;</em></span>
+but more software based than hardware. <br />
+&nbsp;<br />
+So lets get started, first unzip the file DexBasic.zip, in there you
+should find a folder called DexBasic, in there you will find a exe
+called <p1>FASMWARM.EXE,</p1> If you click on it you should see a ide
+that look's something like this..</p>
+
+<p><img style="width: 562px; height: 120px;" alt="" src="images/IDE.png" /><br />
+</p>
+<p>If you then click on the File label and go down the menu untill you
+reach the open label you should see this:<br />
+</p>
+<p><img style="width: 562px; height: 161px;" alt="" src="images/open.png" /><br />
+</p>
+<p>&nbsp;Then if you click on it and click on the hello.asm file, you
+should see this:<br />
+</p>
+<p><img style="width: 422px; height: 271px;" alt="" src="images/open1.png" /><br />
+</p>
+<p>Than click on the open button and you guest it, you should see this:<br />
+</p>
+<p><img style="width: 562px; height: 370px;" alt="" src="images/hello.png" /><br />
+</p>
+<p>Yes the <a style="color: rgb(148, 148, 148);" href="http://en.wikipedia.org/wiki/Hello_world">classic <strong>hello
+world!</strong></a> i will explain how it works and the commands used
+later when we get to
+the DexBasic language part of this tutorial.<br />
+For now i am just going to show you how to get your first hello world!
+program written in DexBasic compiled and running on the raspberry pi,
+with out a&nbsp; operating system. <br />
+Now we have our code loaded in the IDE it's time to compile it
+(assemble it really) So click on the run label and move down the menu
+until you get to the compile label, like this:<br />
+</p>
+<p><img style="width: 562px; height: 131px;" alt="" src="images/compile.png" /><br />
+</p>
+<p>If you get no error (which in this case you should not get) you
+should see this:<br />
+</p>
+<p><img style="width: 290px; height: 243px;" alt="" src="images/assemble.png" /><br />
+</p>
+<p><span class="st"><em>Congratulations, </em></span>you have just
+made your first DexBasic app for the raspberry pi. <br />
+Now that you have compiled your hello world! app, you need to add it to
+a very basic embedded operating system (called DexOS) that act like a
+low level API between your program and the hardware, but unlike HL
+operating systems you are free to talk directly to the hardware, which
+we will show you how to do that as the tutorials get more advanced, for
+now we need to get it runnig on the raspberry pi, so let do that.<br />
+As i said before we need to add it to DexOS, so click on the label File
+as before and then move down the menu to the label open, click on it,
+but this time click on the file kernel.asm, then click on the open
+button you should see this:<br />
+</p>
+<p><img style="width: 562px; height: 334px;" alt="" src="images/kernel.png" /><br />
+</p>
+<p>Its just join's the two file's hello.bin (the one you just compiled)
+with the file DexOS.bin to make one file called kernel.img, thats the
+file that the raspberry pi bootloader look for to load off the SD card.
+<br />
+Now to join these file we click on the label run, go down the menu to
+the lable compile and if we click on it, a box should pop up telling us
+how many pass it's made and the size in bytes, the output of which is a
+file called kernel.img in the DexBasic folder, this is the file we put
+in the root dir of the SD card.<br />
+Now if you already are running linux on your raspberry pi, your best
+bet is to get a second SD and format to FAT32 (Note: do not go anything
+bigger that 2GB, its not needed for bare metal programming) to do that
+you will need a SD card reader, i use one of these which are just over
+a £1 on ebay<br />
+</p>
+<p><img style="width: 300px; height: 300px;" alt="" src="images/usbreadersdcards.jpg" /><br />
+</p>
+<p>Plug your SD card reader in along with your SD card, right click the
+mouse on the icon that pops up in windows (if your using windows that
+is) and go down the menu until you get to format.., like this<br />
+</p>
+<p><img style="width: 516px; height: 387px;" alt="" src="images/format.gif" /><br />
+</p>
+<p>Then click format and you should see something like this:<br />
+</p>
+<p><img style="width: 267px; height: 464px;" alt="" src="images/format-usb-key.png" /><br />
+</p>
+<p>Make sure "file system" is set to fat32, then click start (Note:
+make sure it's the right drive), once completed add all the file's from
+the folder Boot, that's in the zip file DexBasic, also add the file we
+compiled early, namely kernel.img.<br />
+Note: Do not included the boot folder its self, just the file's in it,
+plus the kernel.img file.<br />
+Now you can run the program by just putting the SD card into the
+raspberry pi and powering it on.<br />
+You should see this:<br />
+</p>
+<p><img style="width: 562px; height: 220px;" alt="" src="images/helloshot.png" /><br />
+</p>
+<p>Now if you only have one sd card and have been running linux on your
+raspberry
+pi, you will need to make a backup copy of all the files in the root
+dir (eg: C:\) but the letter depends on your drive letter, and you only
+need to do this in your fat32 partion. Once you have made a backup,
+delete the files in the fat32 partion and replace them with the files
+from the boot folder along with the kernel.img we compiled earlier,
+than
+as above just put the sd card in theraspberry pi and reboot. <br />
+Thats it for the basic intro, next we will go into more detail.<br />
+</p>
+<hr style="width: 100%; height: 2px;" /></div>
+<div class="clear">
+<div id="content_bottom"><br />
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</body>
+<!-- Mirrored from dex-os.github.io/DexBasic/DexBasic.htm by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 26 Apr 2019 15:06:27 GMT -->
+</html>
